@@ -30,7 +30,7 @@ function App() {
   };
 
   const reviewCode = async()=>{
-    const response = await axios.post("http://localhost:5000/ai/get-review", {prompt:code})
+    const response = await axios.post("https://problem-solver-backend-a4hs.onrender.com/ai/get-review", {prompt:code})
     console.log(response)
     const result = response.data.replace(/<think>.*?<\/think>/gs, '')
     setReview(result)
