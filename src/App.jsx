@@ -15,6 +15,10 @@ function App() {
   const [loading,setLoading] = useState(false)
   const [error,setError] = useState("")
   
+  const BASE_URL = process.env.NODE_ENV === "production"
+    ? "https://problem-solver-backend-a4hs.onrender.com"
+    : "http://localhost:5000";
+
   useEffect(()=>{
     prism.highlightAll()
   },[])
@@ -34,8 +38,7 @@ function App() {
   const reviewCode = async()=>{
     setLoading(true)
     try {
-      const response = await axios.post("http://localhost:5000/ai/get-review", {prompt:code})
-      // const response = await axios.post("https://problem-solver-backend-a4hs.onrender.com/ai/get-review", {prompt:code})
+      const response = await axios.post(`${BASE_URL}/ai/get-review`, { prompt: code });
       const result = response.data.replace(/<think>.*?<\/think>/gs, '')
       setReview(result)
       setLoading(false)
